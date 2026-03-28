@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { SafeImage } from "../ui/SafeImage";
+import { Asset } from "../ui/Asset";
 import { ImagePlaceholder } from "./ProjectPlaceholders";
 
 interface ImagePreviewProps {
@@ -44,7 +44,7 @@ export const ImagePreview = ({
           }}
           style={{ willChange: "opacity, transform" }}
         >
-          <SafeImage
+          <Asset
             src={src}
             alt={`${projectTitle} - Preview ${idx + 1}`}
             className="w-full h-full object-cover"

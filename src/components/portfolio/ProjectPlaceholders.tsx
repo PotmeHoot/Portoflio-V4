@@ -1,12 +1,16 @@
 import { motion } from "motion/react";
 import { Image, Play, Circle } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { useSiteContent } from "../../hooks/useSiteContent";
 
 interface PlaceholderProps {
   className?: string;
 }
 
 export const ImagePlaceholder = ({ className }: PlaceholderProps) => {
+  const { content } = useSiteContent();
+  const { portfolio } = content;
+
   return (
     <div className={cn("absolute inset-0 flex items-center justify-center bg-[#080808] overflow-hidden", className)}>
       {/* Subtle Animated Gradient Movement */}
@@ -72,7 +76,7 @@ export const ImagePlaceholder = ({ className }: PlaceholderProps) => {
           </motion.div>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/10">Graphic Work</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/10">{portfolio.graphicWorkLabel}</span>
           <div className="w-4 h-px bg-white/5" />
         </div>
       </motion.div>
@@ -81,6 +85,9 @@ export const ImagePlaceholder = ({ className }: PlaceholderProps) => {
 };
 
 export const VideoPlaceholder = ({ className }: PlaceholderProps) => {
+  const { content } = useSiteContent();
+  const { portfolio } = content;
+
   return (
     <div className={cn("absolute inset-0 flex items-center justify-center bg-[#050505] overflow-hidden", className)}>
       {/* Cinematic Animated Background */}
@@ -156,7 +163,7 @@ export const VideoPlaceholder = ({ className }: PlaceholderProps) => {
           </motion.div>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <span className="text-[11px] font-bold uppercase tracking-[0.6em] text-white/10">Motion Work</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.6em] text-white/10">{portfolio.motionWorkLabel}</span>
           <div className="w-8 h-px bg-white/5" />
         </div>
       </motion.div>
@@ -175,6 +182,9 @@ export const IconPlaceholder = ({ className }: PlaceholderProps) => {
 };
 
 export const VideoIndicator = ({ isVisible }: { isVisible: boolean }) => {
+  const { content } = useSiteContent();
+  const { portfolio } = content;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
@@ -184,7 +194,7 @@ export const VideoIndicator = ({ isVisible }: { isVisible: boolean }) => {
       }}
       className="absolute top-6 right-6 z-30 flex items-center gap-3 px-4 py-2 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/60 pointer-events-none"
     >
-      <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Video</span>
+      <span className="text-[9px] font-bold uppercase tracking-[0.2em]">{portfolio.videoIndicatorLabel}</span>
       <div className="w-px h-3 bg-white/10" />
       <Play className="w-3 h-3 fill-white/20" strokeWidth={1.5} />
     </motion.div>

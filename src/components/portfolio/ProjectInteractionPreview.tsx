@@ -16,6 +16,8 @@ interface ProjectInteractionPreviewProps {
   handleVideoError: () => void;
   isHoverSupported: boolean;
   hasVideo: boolean;
+  previewImages: string[];
+  previewVideo?: string;
 }
 
 export const ProjectInteractionPreview = memo(({
@@ -29,13 +31,14 @@ export const ProjectInteractionPreview = memo(({
   handleLoadedMetadata,
   handleVideoError,
   isHoverSupported,
-  hasVideo
+  hasVideo,
+  previewImages,
+  previewVideo
 }: ProjectInteractionPreviewProps) => {
-  const previewImages = item.previewImages || [];
-  
   // Logic for placeholders based on type
-  const isVideoType = item.type === 'video' || item.type === 'motion' || item.type === 'AR';
-  const isGraphicType = item.type === 'graphic' || !item.type;
+  const normalizedCategory = item.category.toLowerCase();
+  const isVideoType = normalizedCategory.includes("video") || normalizedCategory.includes("motion") || normalizedCategory.includes("ar");
+  const isGraphicType = !isVideoType;
 
   return (
     <div className="absolute inset-0 z-10 overflow-hidden">
@@ -52,9 +55,9 @@ export const ProjectInteractionPreview = memo(({
       )}
 
       {/* Video Preview Layer */}
-      {hasVideo && (
+      {hasVideo && previewVideo && (
         <VideoPreview
-          src={item.previewVideo!}
+          src={previewVideo}
           isVisible={isVideoActive}
           onLoadedMetadata={handleLoadedMetadata}
           onError={handleVideoError}

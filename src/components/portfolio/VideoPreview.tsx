@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
-import { RefObject, useState } from "react";
+import { RefObject } from "react";
 import { VideoPlaceholder } from "./ProjectPlaceholders";
+import { Asset } from "../ui/Asset";
 
 interface VideoPreviewProps {
   src: string;
@@ -17,27 +18,8 @@ export const VideoPreview = ({
   onError,
   videoRef,
 }: VideoPreviewProps) => {
-  const [hasError, setHasError] = useState(false);
-
-  const handleError = () => {
-    setHasError(true);
-    onError();
-  };
-
-  if (hasError) {
-    return <VideoPlaceholder className={isVisible ? "opacity-100" : "opacity-0"} />;
-  }
-
   return (
-    <motion.video
-      ref={videoRef}
-      src={src || undefined}
-      loop
-      muted
-      playsInline
-      preload="auto"
-      onLoadedMetadata={onLoadedMetadata}
-      onError={handleError}
+    <motion.div
       initial={{ opacity: 0, filter: "blur(0px)" }}
       animate={{
         opacity: isVisible ? 1 : 0,
@@ -49,10 +31,24 @@ export const VideoPreview = ({
       }}
       style={{ 
         willChange: "opacity, filter",
-        // Prevent broken video icon from showing
         backgroundColor: "transparent" 
       }}
-      className="w-full h-full object-cover"
-    />
+      className="absolute inset-0"
+    >
+      <Asset
+        ref={videoRef}
+        src={src}
+        alt="Project Preview Video"
+        className="w-full h-full object-cover"
+        containerClassName="w-full h-full"
+        onLoad={onLoadedMetadata}
+        onError={onError}
+        errorFallback={<VideoPlaceholder className="opacity-100" />}
+        autoPlay={isVisible}
+        muted
+        loop
+        playsInline
+      />
+    </motion.div>
   );
 };

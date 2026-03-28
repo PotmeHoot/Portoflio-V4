@@ -7,6 +7,7 @@ export interface SiteSettings {
   ownerName: string;
   email: string;
   location: string;
+  inquireLabel: string;
   seo: {
     description: string;
     keywords: string[];
@@ -22,6 +23,7 @@ export interface NavItem {
 }
 
 export interface HeroContent {
+  backgroundImage: string;
   eyebrow: string;
   title: string;
   description: string;
@@ -37,6 +39,8 @@ export interface HeroContent {
     label: string;
     value: string;
   }[];
+  availabilityLabel: string;
+  scrollLabel: string;
 }
 
 export interface ShowreelContent {
@@ -46,6 +50,8 @@ export interface ShowreelContent {
   highlights: string[];
   poster: string;
   videoUrl: string;
+  videoLabel: string;
+  highlightsLabel: string;
   cta: {
     label: string;
     href: string;
@@ -56,26 +62,25 @@ export interface ShowreelContent {
 export type ProjectStatus = 'ready' | 'coming_soon' | 'hidden';
 export type MediaType = 'image' | 'video' | 'mixed';
 
+export interface ProjectAsset {
+  type: 'image' | 'video';
+  file: string;
+}
+
 export interface Project {
   id: string;
-  slug: string;
   title: string;
-  client: string;
-  agency?: string;
   category: string;
-  type: string;
-  shortDescription: string;
-  deliverables: string[];
-  mediaType: MediaType;
+  folder: string;
   poster: string;
-  previewImages?: string[];
-  previewVideo?: string;
-  platforms: string[];
-  year: string;
-  status: ProjectStatus;
-  featured: boolean;
-  order: number;
-  tags?: string[];
+  assets: ProjectAsset[];
+  client?: string;
+  agency?: string;
+  year?: string;
+  shortDescription?: string;
+  status?: ProjectStatus;
+  featured?: boolean;
+  order?: number;
 }
 
 export interface ARItem {
@@ -114,6 +119,8 @@ export interface ContactContent {
   cta: string;
   status: string;
   email: string;
+  directLabel: string;
+  socialLabel: string;
   socials: {
     name: string;
     url: string;
@@ -122,8 +129,15 @@ export interface ContactContent {
 }
 
 export interface AboutContent {
+  eyebrow: string;
   title: string;
   description: string;
+  brandsLabel: string;
+  expertiseLabel: string;
+  experienceEyebrow: string;
+  experienceTitle: string;
+  toolsEyebrow: string;
+  toolsTitle: string;
   expertise: string[];
   experience: {
     icon: IconName;
@@ -139,19 +153,60 @@ export interface AboutContent {
 
 export interface SiteContent {
   settings: SiteSettings;
+  footer: {
+    privacyLabel: string;
+    termsLabel: string;
+    cookiePolicyLabel: string;
+    rightsReservedLabel: string;
+  };
+  error: {
+    title: string;
+    description: string;
+    retryLabel: string;
+    invalidFormatLabel: string;
+    missingAssetLabel: string;
+  };
   navigation: NavItem[];
   hero: HeroContent;
   showreel: ShowreelContent;
   projects: Project[];
+  portfolio: {
+    eyebrow: string;
+    description: string;
+    trustedByLabel: string;
+    graphicWorkLabel: string;
+    motionWorkLabel: string;
+    videoIndicatorLabel: string;
+    comingSoonLabel: string;
+    clientLabel: string;
+    agencyLabel: string;
+    yearLabel: string;
+    viewProjectLabel: string;
+    backToProjectsLabel: string;
+    projectDetailsLabel: string;
+    descriptionLabel: string;
+    galleryLabel: string;
+  };
   arItems: ARItem[];
+  arShowcase: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    platformLabel: string;
+    comingSoonLabel: string;
+    features: { title: string; desc: string; }[];
+  };
   services: {
+    eyebrow: string;
     title: string;
     description: string;
     items: ServiceItem[];
   };
   collaboration: {
+    eyebrow: string;
     title: string;
     description: string;
+    stepLabel: string;
     steps: CollaborationStep[];
   };
   contact: ContactContent;

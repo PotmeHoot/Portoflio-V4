@@ -23,7 +23,7 @@ export const Collaboration = () => {
         transition={DEFAULT_TRANSITION}
       >
         <SectionHeader 
-          eyebrow="Collaboration"
+          eyebrow={collaboration.eyebrow}
           title={collaboration.title}
           description={collaboration.description}
           centered
@@ -47,7 +47,7 @@ export const Collaboration = () => {
                   <Icon name={step.icon} className="w-8 h-8" />
                 </div>
                 
-                <div className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20 mb-4">Step 0{i + 1}</div>
+                <div className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20 mb-4">{collaboration.stepLabel} 0{i + 1}</div>
                 <h3 className="text-2xl font-bold mb-4 group-hover:text-white transition-colors">{step.title}</h3>
                 <p className="text-sm text-text-secondary group-hover:text-white/70 transition-colors leading-relaxed">
                   {step.description}

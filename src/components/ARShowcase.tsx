@@ -3,14 +3,14 @@ import { Sparkles, Video, QrCode, ExternalLink } from "lucide-react";
 import { useSiteContent } from "../hooks/useSiteContent";
 import { FADE_UP_VARIANTS, SCALE_VARIANTS, DEFAULT_TRANSITION } from "../constants/motion";
 import { PillLabel } from "./ui/PillLabel";
-import { SafeImage } from "./ui/SafeImage";
+import { Asset } from "./ui/Asset";
 
 import { SectionWrapper } from "./ui/SectionWrapper";
 
 export const ARShowcase = () => {
   const shouldReduceMotion = useReducedMotion();
   const { content } = useSiteContent();
-  const { arItems } = content;
+  const { arItems, arShowcase } = content;
 
   // Filter out hidden filters and sort by order
   const visibleFilters = arItems
@@ -31,16 +31,16 @@ export const ARShowcase = () => {
           >
             <PillLabel className="bg-purple-500/10 border-purple-500/20 text-purple-400 mb-6">
               <Sparkles className="w-3 h-3" />
-              Interactive Tech
+              {arShowcase.eyebrow}
             </PillLabel>
-            <h2 className="text-3xl sm:text-4xl md:text-7xl font-bold mb-6 tracking-tight">AR Filters.</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-7xl font-bold mb-6 tracking-tight">{arShowcase.title}</h2>
             <p className="section-description mb-8">
-              Interactive AR filters for TikTok. Combining graphic design with interactive technology to create engaging experiences that stop the scroll.
+              {arShowcase.description}
             </p>
             <div className="flex flex-wrap gap-6">
               <div className="flex items-center gap-3 text-white/60">
                 <Video className="w-5 h-5" />
-                <span className="text-sm font-bold uppercase tracking-widest">TikTok Effect House</span>
+                <span className="text-sm font-bold uppercase tracking-widest">{arShowcase.platformLabel}</span>
               </div>
             </div>
           </motion.div>
@@ -54,7 +54,7 @@ export const ARShowcase = () => {
           >
             {visibleFilters.map((filter, i) => (
               <div key={filter.id} className="relative aspect-[2/3] card-base card-hover group">
-                <SafeImage 
+                <Asset 
                   src={filter.previewImage || ""} 
                   alt={`${filter.title} AR filter for ${filter.platform}`} 
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
@@ -66,7 +66,7 @@ export const ARShowcase = () => {
                   <div className="text-[8px] uppercase tracking-widest font-bold text-white/40 mb-1">{filter.platform}</div>
                   <div className="text-sm font-bold">{filter.title}</div>
                   {filter.status === 'coming_soon' && (
-                    <div className="text-[8px] uppercase tracking-widest font-bold text-blue-400 mt-1">Coming Soon</div>
+                    <div className="text-[8px] uppercase tracking-widest font-bold text-blue-400 mt-1">{arShowcase.comingSoonLabel}</div>
                   )}
                 </div>
                 
@@ -93,11 +93,7 @@ export const ARShowcase = () => {
 
         {/* Horizontal Feature List */}
         <div className="grid md:grid-cols-3 gap-8 border-t border-white/5 pt-16">
-          {[
-            { title: "Effect House", desc: "Advanced TikTok filter creation with high viral potential." },
-            { title: "3D Integration", desc: "Seamlessly blending 3D assets into real-world environments." },
-            { title: "Motion Tracking", desc: "High-precision face and body tracking for immersive effects." }
-          ].map((feat, i) => (
+          {arShowcase.features.map((feat, i) => (
             <div key={i}>
               <h3 className="text-lg font-bold mb-2 text-purple-400">{feat.title}</h3>
               <p className="text-sm text-text-muted leading-relaxed">{feat.desc}</p>

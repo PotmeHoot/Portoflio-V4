@@ -46,14 +46,14 @@ export const Contact = () => {
           {/* Simplified Supporting Info */}
           <div className="grid md:grid-cols-2 gap-12 md:gap-32 items-start text-left md:text-center w-full max-w-3xl mx-auto">
             <div className="space-y-4">
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20">Direct</span>
+              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20">{contact.directLabel}</span>
               <a href={`mailto:${settings.email}`} className="block text-xl md:text-2xl font-bold hover:text-white/60 transition-colors">
                 {settings.email}
               </a>
             </div>
 
             <div className="space-y-4">
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20">Social</span>
+              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20">{contact.socialLabel}</span>
               <div className="flex flex-wrap justify-start md:justify-center gap-8">
                 {contact.socials.map((social) => (
                   <a 

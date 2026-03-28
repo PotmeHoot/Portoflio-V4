@@ -2,7 +2,7 @@ import { motion, useInView } from "motion/react";
 import { Maximize2, Volume2 } from "lucide-react";
 import { SectionWrapper } from "./ui/SectionWrapper";
 import { useSiteContent } from "../hooks/useSiteContent";
-import { SafeImage } from "./ui/SafeImage";
+import { Asset } from "./ui/Asset";
 import { VideoPlaceholder } from "./portfolio/ProjectPlaceholders";
 import { useState, useRef, useEffect } from "react";
 
@@ -47,10 +47,11 @@ export const Showreel = () => {
               <VideoPlaceholder />
             ) : (
               <div className="relative w-full h-full">
-                <video
+                <Asset
                   ref={videoRef}
                   src={showreel.videoUrl}
                   poster={showreel.poster}
+                  alt={`${showreel.title} - Showreel`}
                   className="w-full h-full object-cover"
                   muted
                   playsInline
@@ -67,7 +68,7 @@ export const Showreel = () => {
                         <Volume2 className="w-5 h-5 text-white/60" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/40 mb-1">Motion Portfolio</span>
+                        <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/40 mb-1">{showreel.videoLabel}</span>
                         <span className="text-sm font-bold text-white">{showreel.eyebrow}</span>
                       </div>
                     </div>
@@ -101,7 +102,7 @@ export const Showreel = () => {
           </p>
 
           <div className="space-y-4 lg:space-y-5">
-            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/20 block mb-2">Key Areas</span>
+            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/20 block mb-2">{showreel.highlightsLabel}</span>
             <div className="flex flex-wrap lg:flex-col gap-3 lg:gap-4">
               {showreel.highlights.map((highlight, idx) => (
                 <div key={idx} className="flex items-center gap-4 px-4 py-2 lg:px-0 lg:py-0 rounded-full bg-white/[0.03] lg:bg-transparent border border-white/5 lg:border-none">

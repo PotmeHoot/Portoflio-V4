@@ -26,8 +26,8 @@ export const Expertise = () => {
         {/* Left: Experience */}
         <div>
           <SectionHeader 
-            eyebrow="Experience"
-            title="Career"
+            eyebrow={about.experienceEyebrow}
+            title={about.experienceTitle}
             className="!mb-12"
           />
           <div className="space-y-8">
@@ -57,8 +57,8 @@ export const Expertise = () => {
         {/* Right: Tools */}
         <div>
           <SectionHeader 
-            eyebrow="Tools & AI"
-            title="Stack"
+            eyebrow={about.toolsEyebrow}
+            title={about.toolsTitle}
             className="!mb-12"
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

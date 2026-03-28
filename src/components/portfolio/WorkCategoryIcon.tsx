@@ -4,15 +4,14 @@ import { Project } from "../../types/content";
 
 interface CategoryIconProps {
   category: string;
-  type?: Project['type'];
   className?: string;
 }
 
-export const WorkCategoryIcon = memo(({ category, type, className }: CategoryIconProps) => {
+export const WorkCategoryIcon = memo(({ category, className }: CategoryIconProps) => {
   const normalizedCategory = category.toLowerCase();
   
-  // Priority: 1. Explicit type field, 2. Category string analysis
-  const activeType = type || (
+  // Category string analysis
+  const activeType = (
     (normalizedCategory.includes("ar") || normalizedCategory.includes("filter")) ? "AR" :
     (normalizedCategory.includes("video") || normalizedCategory.includes("film")) ? "video" :
     (normalizedCategory.includes("motion") || normalizedCategory.includes("animation")) ? "motion" :

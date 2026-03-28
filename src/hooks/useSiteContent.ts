@@ -1,26 +1,21 @@
-import { useState, useEffect } from "react";
+import { useContent } from "../context/ContentContext";
 import { SiteContent } from "../types/content";
-import { mockContent } from "../content/mockContent";
 
 /**
  * useSiteContent hook for easy access to site content in components.
- * This is a simple implementation that uses local mock data.
- * In a real CMS integration, this would handle loading states and 
- * fetch data from the ContentService.
+ * Now uses the centralized ContentContext.
  */
 export function useSiteContent() {
-  const [content, setContent] = useState<SiteContent>(mockContent);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  // In a real CMS integration, this would fetch data from the ContentService
-  useEffect(() => {
-    // Simulate fetching
-    setIsLoading(true);
-    // In the future: contentService.getSiteContent().then(setContent).catch(setError).finally(() => setIsLoading(false));
-    setContent(mockContent);
-    setIsLoading(false);
-  }, []);
-
-  return { content, isLoading, error };
+  const { content, isLoading, error } = useContent();
+  
+  // We cast to SiteContent because App.tsx handles the null case
+  // and components using this hook expect the content to be present.
+  // If content is null, we return a partial object to prevent immediate crashes
+  // although App.tsx should prevent this from being rendered.
+  return { 
+    content: content as SiteContent, 
+    isLoading, 
+    error,
+    isReady: !isLoading && !error && !!content
+  };
 }

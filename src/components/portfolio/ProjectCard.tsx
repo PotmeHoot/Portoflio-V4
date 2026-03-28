@@ -13,9 +13,10 @@ import { WorkCategoryIcon } from "./WorkCategoryIcon";
 interface ProjectCardProps {
   item: Project;
   index: number;
+  onSelect: (project: Project) => void;
 }
 
-export const ProjectCard = memo(({ item, index }: ProjectCardProps) => {
+export const ProjectCard = memo(({ item, index, onSelect }: ProjectCardProps) => {
   const shouldReduceMotion = useReducedMotion();
   const [isActive, setIsActive] = useState(false);
 
@@ -32,6 +33,7 @@ export const ProjectCard = memo(({ item, index }: ProjectCardProps) => {
     isImageSequenceActive,
     isIdle,
     previewImages,
+    previewVideo,
     hasVideo: hookHasVideo,
     isHoverSupported
   } = useProjectPreviewLoop(item, isActive);
@@ -55,19 +57,20 @@ export const ProjectCard = memo(({ item, index }: ProjectCardProps) => {
   }, [isHoverDevice]);
 
   const handleClick = useCallback(() => {
-    // Only handle clicks for non-hover (touch) devices
-    if (!isHoverDevice) {
-      if (!isActive) {
-        setIsActive(true);
-      } else if (!hookHasVideo) {
-        // Only advance for image sequences
-        manualAdvance();
-      } else {
-        // For videos, follow original behavior (toggle)
-        setIsActive(false);
-      }
+    // Desktop: Open detail immediately
+    if (isHoverDevice) {
+      onSelect(item);
+      return;
     }
-  }, [isHoverDevice, isActive, manualAdvance, hookHasVideo]);
+
+    // Mobile: Toggle preview or open detail
+    if (!isActive) {
+      setIsActive(true);
+    } else {
+      // If already active on mobile, open detail
+      onSelect(item);
+    }
+  }, [isHoverDevice, isActive, item, onSelect]);
 
   return (
     <motion.article 
@@ -84,16 +87,15 @@ export const ProjectCard = memo(({ item, index }: ProjectCardProps) => {
         
         {/* Layer 1: Media Frame (Static Poster) */}
         <ProjectMediaFrame 
-          poster={item.poster} 
+          poster={`/assets/work/${item.folder}/${item.poster}`} 
           title={item.title} 
           isIdle={isIdle} 
           isActive={isActive} 
-          type={item.type}
         />
 
         {/* Category Icon (Top Left Corner) */}
         <div className="absolute top-6 left-6 z-30 p-2.5 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 text-white/40 pointer-events-none opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-500">
-          <WorkCategoryIcon category={item.category} type={item.type} />
+          <WorkCategoryIcon category={item.category} />
         </div>
 
         {/* Layer 2: Interaction Preview Layer (Images/Videos) */}
@@ -109,6 +111,8 @@ export const ProjectCard = memo(({ item, index }: ProjectCardProps) => {
           handleVideoError={handleVideoError}
           isHoverSupported={isHoverSupported}
           hasVideo={hookHasVideo}
+          previewImages={previewImages}
+          previewVideo={previewVideo}
         />
 
         {/* Layer 3: Timeline Overlay Layer (Progress) */}
@@ -144,6 +148,7 @@ export const ProjectCard = memo(({ item, index }: ProjectCardProps) => {
         {/* Layer 5: Text/Meta Overlay Layer */}
         <ProjectMetaOverlay
           item={item}
+          onSelect={() => onSelect(item)}
         />
       </div>
     </motion.article>

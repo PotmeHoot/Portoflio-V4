@@ -23,7 +23,7 @@ export const Services = () => {
         transition={DEFAULT_TRANSITION}
       >
         <SectionHeader 
-          eyebrow="Expertise"
+          eyebrow={services.eyebrow}
           title={services.title}
           description={services.description}
           centered

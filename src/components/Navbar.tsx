@@ -31,7 +31,7 @@ export const Navbar = () => {
           className="!px-4 !py-1.5 !text-[10px] !rounded-full"
           aria-label="Inquire about a project"
         >
-          Inquire
+          {settings.inquireLabel}
         </Button>
       </nav>
     </header>

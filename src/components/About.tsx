@@ -24,7 +24,7 @@ export const About = () => {
         transition={DEFAULT_TRANSITION}
       >
         <SectionHeader 
-          eyebrow="About Me"
+          eyebrow={about.eyebrow}
           className="!mb-12"
         />
         
@@ -39,7 +39,7 @@ export const About = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 pt-12 border-t border-white/10">
             <div className="lg:col-span-2 space-y-8">
-              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20">Selected Brands</h4>
+              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20">{about.brandsLabel}</h4>
               <div className="flex flex-wrap gap-x-12 gap-y-6">
                 {clients.map((client) => (
                   <span key={client} className="text-xl md:text-2xl font-bold text-white/40 hover:text-white transition-colors cursor-default">
@@ -50,7 +50,7 @@ export const About = () => {
             </div>
 
             <div className="space-y-8">
-              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20">Expertise</h4>
+              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/20">{about.expertiseLabel}</h4>
               <div className="space-y-4">
                 {about.expertise.map((item, idx) => (
                   <div key={idx} className="flex items-center gap-4">
